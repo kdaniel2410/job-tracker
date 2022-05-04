@@ -2,7 +2,7 @@
 
 ## docker-compose.yml
 
-```
+```yaml
 services:
   postgres:
     container_name: postgres
@@ -27,5 +27,13 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - db
-
+    labels:
+      - "traefik.http.routers.job_tracker.rule=Host(`132.145.76.70`)"
+  reverse-proxy:
+    image: traefik:v2.6
+    command: --providers.docker
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 ```
