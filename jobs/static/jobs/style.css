@@ -5,8 +5,8 @@ body {
 
 main {
   margin: auto;
-  width: 60vw;
-  margin-top: 5px;
+  max-width: 1000px;
+  margin: 5px;
 }
 
 .right {
