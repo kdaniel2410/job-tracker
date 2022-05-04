@@ -1,0 +1,33 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Job List{% endblock title %}
+
+{% block content %}
+
+<h1>Job List</h1>
+<p>Here is a list of all the jobs that you have added and the hourly rate that they pay you, if you see an empty table then get started by adding a job. Click the 'Summary' link to see a detailed view of shifts, expenses, reimbursements and targets</p>
+
+<table>
+  <tr>
+    <th>Job</th>
+    <th>Hourly Rate</th>
+    <th>Actions</th>
+  </tr>
+
+  {% for object in object_list %}
+    <tr>
+      <td>{{ object }}</td>
+      <td>£{{ object.hourly_rate }}</td>
+      <td>
+        <a href="{% url 'job' object.pk %}">Summary</a>
+      </td>
+    </tr>
+  {% endfor %}
+  
+</table>
+
+<p>
+  <a href="{% url 'job_create' %}">Create Job</a>
+</p>
+
+{% endblock content %}

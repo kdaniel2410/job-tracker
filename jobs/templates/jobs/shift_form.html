@@ -1,0 +1,16 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Create Shift{% endblock title %}
+
+{% block content %}
+
+<h1>Create Shift</h1>
+
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Create">
+<input type="hidden" name="next" value="{{ next }}">
+</form>
+
+{% endblock content %}

@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  font-family: Calibri, 'Trebuchet MS', sans-serif;
+}
+
+main {
+  margin: auto;
+  width: 60vw;
+  margin-top: 5px;
+}
+
+.right {
+  float: right;
+}
