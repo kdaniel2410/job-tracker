@@ -26,7 +26,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     depends_on:
-      - db
+      - postgres
     labels:
       - "traefik.http.routers.job_tracker.rule=Host(`132.145.76.70`)"
   reverse-proxy:
