@@ -13,11 +13,11 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  job_tracker:
-    container_name: job_tracker
+  tracker:
+    container_name: tracker
     build: .
     command: python manage.py runserver 0.0.0.0:8000
-    image: job_tracker
+    image: tracker
     ports:
       - "8000:8000"
     environment:
@@ -28,7 +28,7 @@ services:
     depends_on:
       - postgres
     labels:
-      - "traefik.http.routers.job_tracker.rule=Host(`132.145.76.70`)"
+      - "traefik.http.routers.tracker.rule=Host(`132.145.76.70`)"
   reverse-proxy:
     image: traefik:v2.6
     command: --providers.docker
