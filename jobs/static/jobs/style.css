@@ -6,7 +6,8 @@ body {
 main {
   margin: auto;
   max-width: 1000px;
-  margin: 5px;
+  margin-top: 5px;
+  padding: 5px;
 }
 
 .right {
