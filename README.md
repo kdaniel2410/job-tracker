@@ -29,7 +29,8 @@ services:
       - postgres
     labels:
       - "traefik.http.routers.tracker.rule=Host(`132.145.76.70`)"
-  reverse-proxy:
+  traefik:
+    container_name: traefik
     image: traefik:v2.6
     command: --providers.docker
     ports:
