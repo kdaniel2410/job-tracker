@@ -43,8 +43,8 @@
       <td>{{ shift.length|floatformat }} hours</td>
       <td>£{{ shift.income|floatformat:2 }}</td>
       <td>
-        <a href="{% url 'shift_delete' shift.pk %}">Delete</a>
-        <a href="{% url 'shift_update' shift.pk %}">Update</a>
+        <a href="{% url 'shift_delete' object.pk shift.pk %}">Delete</a>
+        <a href="{% url 'shift_update' object.pk shift.pk %}">Update</a>
       </td>
     </tr>
   {% endfor %}

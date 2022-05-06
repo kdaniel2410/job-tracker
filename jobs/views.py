@@ -1,5 +1,5 @@
 from django.views import generic
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth import mixins
 from django.db.models import ExpressionWrapper, F, Sum, Count, FloatField, DateTimeField
@@ -46,31 +46,37 @@ class JobCreate(mixins.LoginRequiredMixin, generic.CreateView):
 class JobUpdate(mixins.LoginRequiredMixin, generic.UpdateView):
     model = models.Job
     fields = ["title", "hourly_rate"]
-    success_url = "/"
+    success_url = reverse_lazy("jobs")
 
 
 class JobDelete(mixins.LoginRequiredMixin, generic.DeleteView):
     model = models.Job
-    success_url = "/"
+    success_url = reverse_lazy("jobs")
 
 class ShiftCreate(mixins.LoginRequiredMixin, generic.CreateView):
     model = models.Shift
     fields = ["start", "length"]
-    success_url = "/"
+
+    def get_success_url(self):
+        return reverse_lazy('job', args=(self.kwargs["pk"], ))
 
     def form_valid(self, form):
         shift = form.save(commit=False)
         shift.job = models.Job.objects.get(pk=self.kwargs["pk"])
         shift.save()
-        return redirect(self.success_url)
+        return redirect(self.get_success_url())
 
 
 class ShiftUpdate(mixins.LoginRequiredMixin, generic.UpdateView):
     model = models.Shift
     fields = ["start", "length"]
-    success_url = "/"
+
+    def get_success_url(self):
+        return reverse_lazy('job', args=(self.kwargs["job_pk"], ))
 
 
 class ShiftDelete(mixins.LoginRequiredMixin, generic.DeleteView):
     model = models.Shift
-    success_url = "/"
+
+    def get_success_url(self):
+        return reverse_lazy('job', args=(self.kwargs["job_pk"], ))
