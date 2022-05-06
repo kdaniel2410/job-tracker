@@ -20,6 +20,8 @@
       <td>£{{ object.hourly_rate }}</td>
       <td>
         <a href="{% url 'job' object.pk %}">Summary</a>
+        <a href="{% url 'job_delete' object.pk %}">Delete</a>
+        <a href="{% url 'job_update' object.pk %}">Update</a>
       </td>
     </tr>
   {% endfor %}

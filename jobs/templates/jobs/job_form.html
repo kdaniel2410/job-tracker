@@ -6,7 +6,7 @@
 
 <h1>Create Job</h1>
 
-<form method="post" action="{% url 'job_create' %}">
+<form method="post">
 {% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Create">

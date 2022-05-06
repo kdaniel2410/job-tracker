@@ -43,6 +43,15 @@ class JobCreate(mixins.LoginRequiredMixin, generic.CreateView):
         form.save_m2m()
         return redirect(self.success_url)
 
+class JobUpdate(mixins.LoginRequiredMixin, generic.UpdateView):
+    model = models.Job
+    fields = ["title", "hourly_rate"]
+    success_url = "/"
+
+
+class JobDelete(mixins.LoginRequiredMixin, generic.DeleteView):
+    model = models.Job
+    success_url = "/"
 
 class ShiftCreate(mixins.LoginRequiredMixin, generic.CreateView):
     model = models.Shift
