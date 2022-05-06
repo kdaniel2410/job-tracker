@@ -7,7 +7,7 @@
 <h1>Delete Shift</h1>
 
 <form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <p>Are you sure you want to delete "{{ object }}"? This action cannot be undone and any attached shifts will be lost!</p>
     {{ form }}
     <input type="submit" value="Confirm">
 </form>

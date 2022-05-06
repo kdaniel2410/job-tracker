@@ -13,21 +13,22 @@
   </tr>
   <tr>
     <th>Number of Shifts</th>
-    <td>{{ object.shift_count|default:0}}</td>
+    <td>{{ object.shift_count|default:0 }}</td>
   </tr>
   <tr>
     <th>Total Hours</th>
-    <td>{{ object.total_hours|floatformat }} hours</td>
+    <td>{{ object.total_hours|default:0 }} hours</td>
   </tr>
   <tr>
     <th>Total Income</th>
-    <td>£{{ object.total_income|floatformat:2 }}</td>
+    <td>£{{ object.total_income|default:0 }}</td>
   </tr>
 </table>
 
 
 <h2>Shifts</h2>
 
+{% if shifts %}
 <table>
   <tr>
     <th>Date</th>
@@ -49,7 +50,9 @@
     </tr>
   {% endfor %}
 </table>
-
+{% else %}
+<p>There are no shifts for {{ job }} yet, click the link below to create one.
+{% endif %}
 <p>
   <a href="{% url 'shift_create' object.pk %}">Create Shift</a>
 </p>
