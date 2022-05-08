@@ -10,6 +10,9 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['title']
+
 
 class Shift(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
@@ -18,6 +21,9 @@ class Shift(models.Model):
 
     def __str__(self):
         return f"{self.length} hours on {self.start}"
+
+    class Meta:
+        ordering = ['start']
 
 
 class Reimbursement(models.Model):
