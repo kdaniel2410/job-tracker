@@ -14,8 +14,19 @@ class Job(models.Model):
         ordering = ['title']
 
 
-class Shift(models.Model):
+class Period(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    cutoff = models.DateField()
+    payday = models.DateField()
+
+    def __str__(self):
+        return f"{self.cutoff} {self.job.title}"
+
+    class Meta:
+        ordering = ['payday']
+
+class Shift(models.Model):
+    period = models.ForeignKey(Period, on_delete=models.CASCADE)
     start = models.DateTimeField()
     length = models.FloatField(default=0)
 

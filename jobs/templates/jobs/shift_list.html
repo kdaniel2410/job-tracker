@@ -1,0 +1,41 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Job List{% endblock title %}
+
+{% block content %}
+
+<h1>Shift List</h1>
+
+<p>
+  <a href="{% url 'period_list' job_pk %}">Go Back</a>
+</p>
+
+<table>
+  <tr>
+    <th>Start</th>
+    <th>Time</th>
+    <th>Length</th>
+    <th>Income</th>
+    <th>Actions</th>
+  </tr>
+
+  {% for object in object_list %}
+    <tr>
+      <td>{{ object.start|date }}</td>
+      <td>{{ object.start|date:"f" }}</td>
+      <td>{{ object.length|floatformat:2 }} hours</td>
+      <td>£{{ object.income|floatformat:2 }}</td>
+      <td>
+        <a href="{% url 'shift_delete' job_pk period_pk object.pk %}">Delete</a>
+        <a href="{% url 'shift_update' job_pk period_pk object.pk %}">Update</a> 
+      </td>
+    </tr>
+  {% endfor %}
+  
+</table>
+
+<p>
+  <a href="{% url 'shift_create' job_pk period_pk %}">Create Shift</a>
+</p>
+
+{% endblock content %}

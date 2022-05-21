@@ -1,0 +1,15 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Create Shift{% endblock title %}
+
+{% block content %}
+
+<h1>Delete Shift</h1>
+
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"? This action cannot be undone!</p>
+    {{ form }}
+    <input type="submit" value="Confirm">
+</form>
+
+{% endblock content %}
