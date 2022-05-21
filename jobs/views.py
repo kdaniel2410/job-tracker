@@ -14,7 +14,7 @@ class JobList(mixins.LoginRequiredMixin, generic.ListView):
 class JobCreate(mixins.LoginRequiredMixin, generic.CreateView):
     model = models.Job
     fields = ["title", "hourly_rate"]
-    success_url = reverse_lazy("jobs")
+    success_url = reverse_lazy("job_list")
 
     def form_valid(self, form):
         job = form.save(commit=False)
@@ -27,12 +27,12 @@ class JobCreate(mixins.LoginRequiredMixin, generic.CreateView):
 class JobUpdate(mixins.LoginRequiredMixin, generic.UpdateView):
     model = models.Job
     fields = ["title", "hourly_rate"]
-    success_url = reverse_lazy("jobs")
+    success_url = reverse_lazy("job_list")
 
 
 class JobDelete(mixins.LoginRequiredMixin, generic.DeleteView):
     model = models.Job
-    success_url = reverse_lazy("jobs")
+    success_url = reverse_lazy("job_list")
 
 
 class PeriodList(mixins.LoginRequiredMixin, generic.ListView):
