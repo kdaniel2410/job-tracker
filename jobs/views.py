@@ -65,7 +65,7 @@ class PeriodCreate(mixins.LoginRequiredMixin, generic.CreateView):
 
 class PeriodUpdate(mixins.LoginRequiredMixin, generic.UpdateView):
     model = models.Period
-    fields = ["start", "length"]
+    fields = ["cutoff", "payday"]
 
     def get_success_url(self):
         return reverse_lazy("period_list", args=(self.kwargs["job_pk"],))
