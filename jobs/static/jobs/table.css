@@ -13,3 +13,6 @@ td {
 tr:hover {
   background-color: beige;
 }
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
