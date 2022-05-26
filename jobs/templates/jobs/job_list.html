@@ -1,32 +1,39 @@
 {% extends 'jobs/base.html' %}
 
-{% block title %}Job List{% endblock title %}
+{% block title %}Jobs{% endblock title %}
 
 {% block content %}
 
-<h1>Job List</h1>
-<p>Here is a list of all the jobs that you have added and the hourly rate that they pay you, if you see an empty table then get started by adding a job. Click the 'Summary' link to see a detailed view of shifts.</p>
+<h1>Jobs</h1>
 
-<table>
-  <tr>
-    <th>Job</th>
-    <th>Hourly Rate</th>
-    <th>Actions</th>
-  </tr>
+{% if object_list %}
 
-  {% for object in object_list %}
+  <table>
     <tr>
-      <td>{{ object }}</td>
-      <td>£{{ object.hourly_rate|floatformat:2 }}</td>
-      <td>
-        <a href="{% url 'period_list' object.pk %}">Summary</a>
-        <a href="{% url 'job_delete' object.pk %}">Delete</a>
-        <a href="{% url 'job_update' object.pk %}">Update</a>
-      </td>
+      <th>Job</th>
+      <th>Hourly Rate</th>
+      <th>Actions</th>
     </tr>
-  {% endfor %}
-  
-</table>
+
+    {% for object in object_list %}
+      <tr>
+        <td>{{ object }}</td>
+        <td>£{{ object.hourly_rate|floatformat:2 }}</td>
+        <td>
+          <a href="{% url 'period_list' object.pk %}">Summary</a>
+          <a href="{% url 'job_delete' object.pk %}">Delete</a>
+          <a href="{% url 'job_update' object.pk %}">Update</a>
+        </td>
+      </tr>
+    {% endfor %}
+    
+  </table>
+
+{% else %}
+
+  <p>You haven't created any jobs yet, use the button below to add one</p>
+
+{% endif %}
 
 <p>
   <a href="{% url 'job_create' %}">Create Job</a>

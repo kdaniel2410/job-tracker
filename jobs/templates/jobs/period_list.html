@@ -1,37 +1,45 @@
 {% extends 'jobs/base.html' %}
 
-{% block title %}Period List{% endblock title %}
+{% block title %}Periods{% endblock title %}
 
 {% block content %}
 
-<h1>Period List</h1>
+<h1>Periods</h1>
 
 <p>
   <a href="{% url 'job_list' %}">Go Back</a>
 </p>
 
-<table>
-  <tr>
-    <th>Cutoff</th>
-    <th>Payday</th>
-    <th>Income</th>
-    <th>Actions</th>
-  </tr>
+{% if object_list %}
 
-  {% for object in object_list %}
+  <table>
     <tr>
-      <td>{{ object.cutoff|date }}</td>
-      <td>{{ object.payday|date }}</td>
-      <td>£{{ object.income|floatformat:2 }}</td>
-      <td>
-        <a href="{% url 'shift_list' job_pk object.pk %}">Summary</a>
-        <a href="{% url 'period_delete' job_pk object.pk %}">Delete</a>
-        <a href="{% url 'period_update' job_pk object.pk %}">Update</a>
-      </td>
+      <th>Cutoff</th>
+      <th>Payday</th>
+      <th>Income</th>
+      <th>Actions</th>
     </tr>
-  {% endfor %}
-  
-</table>
+
+    {% for object in object_list %}
+      <tr>
+        <td>{{ object.cutoff|date }}</td>
+        <td>{{ object.payday|date }}</td>
+        <td>£{{ object.income|floatformat:2 }}</td>
+        <td>
+          <a href="{% url 'shift_list' job_pk object.pk %}">Summary</a>
+          <a href="{% url 'period_delete' job_pk object.pk %}">Delete</a>
+          <a href="{% url 'period_update' job_pk object.pk %}">Update</a>
+        </td>
+      </tr>
+    {% endfor %}
+    
+  </table>
+
+{% else %}
+
+  <p>You haven't created any periods yet, use the button below to add one</p>
+
+{% endif %}
 
 <p>
   <a href="{% url 'period_create' job_pk %}">Create Period</a>
