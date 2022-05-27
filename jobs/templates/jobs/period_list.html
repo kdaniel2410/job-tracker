@@ -25,6 +25,7 @@
         <td>{{ object.cutoff|date }}</td>
         <td>{{ object.payday|date }}</td>
         <td>£{{ object.income|floatformat:2 }}</td>
+        <td>{{ object.hours|floatformat:2 }} hours</td>
         <td>
           <a href="{% url 'shift_list' job_pk object.pk %}">Summary</a>
           <a href="{% url 'period_delete' job_pk object.pk %}">Delete</a>

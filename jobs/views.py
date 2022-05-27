@@ -37,17 +37,19 @@ class JobDelete(mixins.LoginRequiredMixin, generic.DeleteView):
 
 class PeriodList(mixins.LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
-        return models.Period.objects.filter(job__id=self.kwargs['job_pk']).annotate(
+        return models.Period.objects.filter(job__id=self.kwargs["job_pk"]).annotate(
             income=ExpressionWrapper(
-                Sum("shift__length") * F("job__hourly_rate"), output_field=FloatField()
+                Sum("shift__length") * F("job__hourly_rate"),
+                output_field=FloatField(),
             ),
+            hours=Sum("shift__length"),
         )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["job_pk"] = self.kwargs['job_pk']
+        context["job_pk"] = self.kwargs["job_pk"]
         return context
-    
+
 
 class PeriodCreate(mixins.LoginRequiredMixin, generic.CreateView):
     model = models.Period
@@ -77,10 +79,11 @@ class PeriodDelete(mixins.LoginRequiredMixin, generic.DeleteView):
     def get_success_url(self):
         return reverse_lazy("period_list", args=(self.kwargs["job_pk"],))
 
+
 class ShiftList(mixins.LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return models.Shift.objects.filter(
-            period__id=self.kwargs['period_pk'],
+            period__id=self.kwargs["period_pk"],
         ).annotate(
             income=ExpressionWrapper(
                 F("length") * F("period__job__hourly_rate"), output_field=FloatField()
@@ -89,8 +92,8 @@ class ShiftList(mixins.LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["job_pk"] = self.kwargs['job_pk']
-        context["period_pk"] = self.kwargs['period_pk']
+        context["job_pk"] = self.kwargs["job_pk"]
+        context["period_pk"] = self.kwargs["period_pk"]
         return context
 
 
@@ -99,7 +102,9 @@ class ShiftCreate(mixins.LoginRequiredMixin, generic.CreateView):
     fields = ["start", "length"]
 
     def get_success_url(self):
-        return reverse_lazy("shift_list", args=(self.kwargs["job_pk"], self.kwargs["period_pk"]))
+        return reverse_lazy(
+            "shift_list", args=(self.kwargs["job_pk"], self.kwargs["period_pk"])
+        )
 
     def form_valid(self, form):
         shift = form.save(commit=False)
@@ -113,11 +118,15 @@ class ShiftUpdate(mixins.LoginRequiredMixin, generic.UpdateView):
     fields = ["start", "length"]
 
     def get_success_url(self):
-        return reverse_lazy("shift_list", args=(self.kwargs["job_pk"], self.kwargs["period_pk"]))
+        return reverse_lazy(
+            "shift_list", args=(self.kwargs["job_pk"], self.kwargs["period_pk"])
+        )
 
 
 class ShiftDelete(mixins.LoginRequiredMixin, generic.DeleteView):
     model = models.Shift
 
     def get_success_url(self):
-        return reverse_lazy("shift_list", args=(self.kwargs["job_pk"], self.kwargs["period_pk"]))
+        return reverse_lazy(
+            "shift_list", args=(self.kwargs["job_pk"], self.kwargs["period_pk"])
+        )
